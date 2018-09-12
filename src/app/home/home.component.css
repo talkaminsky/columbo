@@ -1,0 +1,61 @@
+.home-wrapper {
+    margin-top: 7px;
+    width: 100%;
+    height: 80px;
+}
+
+.item-detail {
+    font-size: 22px;
+    color: #006699
+}
+
+.home-profile-image {
+    margin-top: 10px;
+    display: inline-block
+}
+
+.home-profile-name {
+    margin-top: 10px;
+    display: inline-block
+}
+
+.add-trip{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+    background-color: #006699;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.post-item {
+    margin-bottom: 10px;
+}
+
+.post-item .post-asset {
+    border-radius: 3px;
+    overflow: hidden;
+    width: 35%;
+    display: inline-block;
+    height: 65px;
+    margin-bottom: -14px;
+    max-width: 112px;
+}
+
+.post-item .post-asset.image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.post-item .post-header {
+    padding: 15px;
+    border-bottom: none;
+    width: 65%;
+    display: inline-block;
+}

@@ -1,0 +1,32 @@
+<section class="container">
+  <div class="form-divider"></div>
+  <div class="form-row">	
+    <a class="button circle block red"  (click)="tryGoogleLogin()"><i class="fa fa-google"></i> Login with Google</a>
+  </div>
+  <div class="form-divider"></div>
+  <div class="form-label-divider"><span>OR</span></div>
+  <div class="form-divider"></div>
+    <form [formGroup]="loginForm">
+      <div class="form-row-group with-icons">
+        <div class="form-row no-padding">
+          <i class="fa fa-envelope"></i>
+          <input type="email" formControlName="email" class="form-element" placeholder="Email">
+        </div>
+        <div class="form-row no-padding">
+          <i class="fa fa-lock"></i>
+          <input type="password" formControlName="password" class="form-element  last-element" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-row txt-center">
+        <a href="" data-loader="show">Forgot password?</a>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-row">
+        <button type="submit" (click)="tryLogin(loginForm.value)" class="button circle block green">Login</button>
+      </div>
+    </form>
+    <div class="form-row txt-center">
+      Don't you have an account yet? <a href="/register" data-loader="show">Sign Up</a>
+    </div>
+</section>
+
