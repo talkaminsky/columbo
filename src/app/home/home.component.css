@@ -21,8 +21,8 @@
 
 .add-trip{
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: 30px;
+    bottom: 15px;
     color: white;
     background-color: #006699;
     height: 50px;
@@ -34,7 +34,7 @@
 }
 
 .post-item {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .post-item .post-asset {
@@ -45,6 +45,9 @@
     height: 65px;
     margin-bottom: -14px;
     max-width: 112px;
+    right: 30px;
+    position: absolute;
+    margin-top: 8px;
 }
 
 .post-item .post-asset.image img {

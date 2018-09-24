@@ -18,11 +18,10 @@ export class AuthGuard implements CanActivate {
       this.userService.getCurrentUser()
       .then(user => {
         if(location.pathname == '/login' || location.pathname == '/register' || location.pathname == '/forgot-password') {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         }
         return resolve(true);
       }, err => {
-        this.router.navigate(['/login']);
         return resolve(true);
       })
     })

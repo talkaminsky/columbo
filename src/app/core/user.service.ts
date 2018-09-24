@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 @Injectable()
 export class UserService {
+  public authStateChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
    public db: AngularFirestore,
@@ -12,10 +13,12 @@ export class UserService {
 
   getCurrentUser(): Promise<any>  {
     return new Promise<any>((resolve, reject) => {
-      var user = firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+          this.authStateChanged.emit(user);
           resolve(user);
         } else {
+          this.authStateChanged.emit(null);
           reject('No user logged in');
         }
       });

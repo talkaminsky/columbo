@@ -1,20 +1,21 @@
 <div class="nav-menu">
     <nav class="menu">
       <div class="nav-header">
-        <a href="home.html"><img src="./template/img/app-logo.png" width="160"></a>
+        <a href="home.html"><img src="assets/template/img/app-logo.png" width="160"></a>
       </div>
       <div class="nav-container">
         <ul class="main-menu">
-          <li>
-            <a href="home.html"><i class="fa fa-home"></i> Home</a>
+          <li *ngIf="user" (click)="logout()">
+            <a><i class="fas fa-sign-out-alt"></i> Logout</a>
           </li>
-          <li class="active">
-            <a href="javascript:void(0);"><i class="fa fa-sign-in"></i> Entry <span class="fa fa-angle-down"></span></a>
-            <ul>
-              <li><a href="/login" data-loader="show">Login</a></li>
-              <li class="active"><a href="signup.html" data-loader="show">Register</a></li>
-              <li><a href="forgot-password.html" data-loader="show">Forgot Password</a></li>
-            </ul>
+          <li *ngIf="!user">
+            <a><i class="fas fa-sign-in-alt"></i> Sign In</a>
+          </li>
+          <li *ngIf="user">
+            <a href="/home"><i class="fa fa-home"></i> Home</a>
+          </li>
+          <li *ngIf="user">
+            <a href="/profile"><i class="fa fa-user"></i> Profile</a>
           </li>
         </ul>
       </div>
