@@ -1,0 +1,44 @@
+<div>
+    <div class="add-trip" data-popup="addTripPopup">
+        <i class="fa fa-map-marked-alt"></i>
+      </div>
+      
+      <div class="popup-overlay" id="addTripPopup">
+        <div class="popup-container">
+          <div class="popup-header">
+            <h3 class="popup-title">Add a Discovery</h3>
+            <span class="popup-close" data-dismiss="true"><i class="fa fa-times"></i></span>
+          </div>
+          <div class="popup-content">
+            
+            <div class="form-row-group">
+              <div class="form-row no-padding">
+                <input type="text" name="name" class="form-element last-element" placeholder="Discovery Title">
+              </div>
+            </div>
+      
+            <div class="form-mini-divider"></div>
+      
+            <div class="form-row-group">
+              <div class="form-row no-padding">
+                <i class="fa fa-address-book-o"></i>
+                <textarea class="form-element last-element" placeholder="Discovery Description" rows="6"></textarea>
+              </div>
+            </div>
+      
+            <div class="form-mini-divider"></div>
+      
+            <div class="form-row-group">
+              <div class="form-row add-file">
+                  <input type="file" name="pic" accept="image/*">
+              </div>
+            </div>
+      
+          </div>
+          <div class="popup-footer">
+            <button class="button green" (click)="addUser(tempUser)">Save</button>
+          </div>
+        </div>
+      </div>
+</div>
+

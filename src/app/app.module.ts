@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
+import { AddTripComponent } from './add-trip/add-trip.component';
+import { TripComponent } from './trip/trip.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { MapComponent } from './map/map.component';
     RegisterComponent,
     MenuComponent,
     HomeComponent,
-    MapComponent
+    MapComponent,
+    AddTripComponent,
+    TripComponent
   ],
   imports: [
     BrowserModule,

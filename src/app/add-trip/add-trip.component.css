@@ -1,0 +1,22 @@
+.add-trip{
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    color: white;
+    background-color: #006699;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.popup-overlay {
+    z-index: 1000;
+    top: 49px;
+}
+
+.add-file{
+    padding: 5px;
+}

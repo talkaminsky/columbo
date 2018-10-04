@@ -391,7 +391,7 @@ main.no-header .TurboWrapper{
 [7. Container]
 *------------------------------------------------------------------*/
 section.container{
-	padding: 0 10px;
+	padding: 12px 8px;
 }
 /*end of part 7----------------------------------------------------*/
 
@@ -1945,7 +1945,7 @@ select.form-element{
     	padding: 10px 20px;
     }
     section.container{
-		padding: 0 20px;
+		padding: 20px;
 	}
 	nav.menu{
 		width: 300px;
