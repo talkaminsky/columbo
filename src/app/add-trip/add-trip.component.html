@@ -14,7 +14,7 @@
             
             <div class="form-row-group">
               <div class="form-row no-padding">
-                <input type="text" name="name" class="form-element last-element" placeholder="Discovery Title">
+                <input type="text" name="name" class="form-element last-element" placeholder="Title">
               </div>
             </div>
       
@@ -22,34 +22,46 @@
       
             <div class="form-row-group">
               <div class="form-row no-padding">
-                <i class="fa fa-address-book-o"></i>
                 <textarea class="form-element last-element" placeholder="Discovery Story" rows="6"></textarea>
               </div>
             </div>
 
             <div class="form-mini-divider"></div>
 
-            <div class="form-row no-padding">
-              <select class="form-element" formControlName="countryControl" [value]='allCountries[defaultCountryIndex]' (change)="countryChanged($event)">
-                <option [value]="country" *ngFor="let country of allCountries">{{country}}</option>
-              </select>
+            <div class="form-row-group">
+              <div class="form-row no-padding">
+                <select class="form-element last-element" formControlName="countryControl" [value]='allCountries[0]' (change)="countryChanged($event)">
+                  <option [value]="country" *ngFor="let country of allCountries" [hidden]="country == 'Country'">
+                    {{country}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-mini-divider" *ngIf="shouldShowCities()"></div>
+
+            <div class="form-row-group" *ngIf="shouldShowCities()">
+              <div class="form-row no-padding">
+                  <select class="form-element last-element" formControlName="cityControl" [value]='allCities[0]' >
+                    <option [value]="city" *ngFor="let city of allCities">{{city}}</option>
+                  </select>
+                </div>
             </div>
 
             <div class="form-mini-divider"></div>
 
-            <div class="form-row no-padding">
-                <select class="form-element" formControlName="cityControl" [value]='allCities[0]'>
-                  <option [value]="city" *ngFor="let city of allCities">{{city}}</option>
-                </select>
-              </div>
+            <div class="form-row">Add Images</div>
+            <div class="trip-images">
+                <div class="pic">
+                  +
+                </div>
+            </div>
 
-            <div class="form-mini-divider"></div>
-
-            <div class="form-row-group">
+            <!-- <div class="form-row-group">
               <div class="form-row add-file">
                   <input type="file" (change)="setImage($event)" accept=".png,.jpg" />
               </div>
-            </div>
+            </div> -->
       
           </div>
           <div class="popup-footer">
