@@ -20,3 +20,11 @@
 .add-file{
     padding: 5px;
 }
+
+.geocoder {
+    
+}
+
+.mapboxgl-ctrl-geocoder { 
+    min-width:100%;
+ }

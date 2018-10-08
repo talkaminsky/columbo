@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
 import { AddTripComponent } from './add-trip/add-trip.component';
 import { TripComponent } from './trip/trip.component';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { TripComponent } from './trip/trip.component';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, UserService, UserResolver, AuthGuard, HomeResolver],
+  providers: [AngularFireStorage, AuthService, UserService, UserResolver, AuthGuard, HomeResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

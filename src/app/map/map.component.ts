@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { polygonCenter } from 'geojson-polygon-center';
 
 @Component({
   selector: 'app-map',
