@@ -1,12 +1,11 @@
 declare var $: any;
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { User } from '../models/user.interface';
 import { Observable } from 'rxjs';
 import { Trip } from '../models/trip.interface';
 import CountriesCities from  'full-countries-cities';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from 'angularfire2/storage';
 
 @Component({
@@ -15,54 +14,82 @@ import { AngularFireStorage } from 'angularfire2/storage';
   styleUrls: ['./add-trip.component.css']
 })
 export class AddTripComponent implements OnInit {
-  private usersCollection: AngularFirestoreCollection<User>;
+  @Input() userId: string;
+  private tripsCollection: AngularFirestoreCollection<Trip>;
 
-  users: Observable<User[]>;
-  tempUser: any = {} ;
-  image: any = {};
+  trips: Observable<Trip[]>;
+  tripImages: any = [];
 
   allCountries: any = CountriesCities.getCountryNames();
   allCities: any = [];
   selectedCountry: string = 'Country';
   tripForm: FormGroup;
+  submitted:boolean = false;
+  imageId: number = 0;
 
   constructor(private angularFire: AngularFirestore, private fb: FormBuilder, private afStorage: AngularFireStorage) { 
-    this.usersCollection = angularFire.collection<User>('users');
-    this.users = this.usersCollection.valueChanges();
+    this.tripsCollection = angularFire.collection<Trip>('trips');
+    this.trips = this.tripsCollection.valueChanges();
     this.allCountries.unshift('Country');
   }
 
   ngOnInit() {
     this.initImages();
     this.tripForm = this.fb.group({
-      countryControl: new FormControl(),
+      titleControl: ['', Validators.required],
+      storyControl: new FormControl(),
+      countryControl: ['', Validators.required],
       cityControl: new FormControl()
     });
   
   }
 
-  countryChanged(e) {
-    this.selectedCountry = this.tripForm.controls['countryControl'].value;
-    this.allCities = CountriesCities.getCities(this.selectedCountry);
-  }
+  get form() { return this.tripForm.controls; }
 
-  setImage(event) {
-    this.image = event.target.files[0];
+  countryChanged(e) {
+    this.selectedCountry = this.tripForm.controls.countryControl.value;
+    this.allCities = CountriesCities.getCities(this.selectedCountry);
   }
 
   shouldShowCities() {
     return this.selectedCountry !== 'Country';
   }
 
-  addUser(user: User) {
-    user.name = "Tal";
-    user.userId = "123";
-    user.trips = ['456']
-   
-    this.afStorage.upload('/trips/456', this.image).then(x => {
-      debugger;
-      this.usersCollection.add(user);
-    });  
+  addTrip() {
+    this.submitted = true;
+
+    if (this.tripForm.invalid) return;
+
+    let trip = {
+       userId: this.userId,
+       title: this.tripForm.controls.titleControl.value,
+       story: this.tripForm.controls.storyControl.value,
+       country: this.tripForm.controls.countryControl.value,
+       city: this.tripForm.controls.cityControl.value,
+       coordinates: {
+        latitude: 0,
+        longitude: 0
+       },
+       photos: [],
+       creationDate: new Date(),
+       updateDate: new Date(),
+       likes: []
+    } ;
+
+    let imagesUplodes = [];
+    trip.photos = [];
+    this.tripImages.forEach(image => {
+
+      imagesUplodes.push(new Promise((resolve) => {
+        this.afStorage.upload('/trips/' + this.userId +'/' + new Date().getTime(), image).then(upload => {
+          trip.photos.push(upload.metadata.fullPath);
+          resolve();
+        });
+      }));
+
+    });
+
+    Promise.all(imagesUplodes).then(() => this.tripsCollection.add(trip));
   }
 
   initImages() {
@@ -70,25 +97,39 @@ export class AddTripComponent implements OnInit {
     var uploader = $('<input type="file" accept="image/*" />')
     var images = $('.trip-images')
     
-    button.on('click', function () {
-      uploader.click()
-    })
+    button.on('click', () => uploader.click());
     
-    uploader.on('change', function () {
-        var reader = new FileReader()
-        reader.onload = function(event) {
-          images.prepend('<div class="img" style="background-image: url(\'' 
-          + event['target']['result'] + '\');" rel="'
-          + event['target']['result']  +'"><span>remove</span></div>')
-        }
-        reader.readAsDataURL(uploader[0]['files'][0])
+    uploader.on('change', () => {
+        var reader = new FileReader();
+        var imageFile = uploader[0]['files'][0];
+        this.tripImages.push(imageFile);
+        reader.readAsDataURL(imageFile);
+        button.hide();
 
-     })
+        if(this.tripImages.length < 8) {
+          button.show();
+        }
+
+        reader.onload = (event) => {
+          var image = event['target']['result'];
+          images.prepend('<div class="img" style="background-image: url(\'' 
+          + image + '\');" rel="'+ image  +'"><span id="' 
+          + this.imageId + '" class="remove" (click)="removeImage($event)">x</span></div>');
+         
+          this.imageId++;
+        }
+     });
     
-    images.on('click', '.img', function () {
-      $(this).remove()
-    })
-  
+    images.on('click', '.remove', (target) => {
+        var currentImage = parseInt(target.toElement.id);
+        this.tripImages.splice(currentImage, 1);
+        $(target.toElement).parent().remove();
+        this.imageId--;
+
+        if(this.tripImages.length < 8) {
+          button.show();
+        }
+    });
   }
 
 }

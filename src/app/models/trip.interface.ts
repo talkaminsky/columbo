@@ -1,13 +1,15 @@
 export interface Trip {
     userId: string;
-    name: string;
-    description: string;
+    title: string;
+    story: string;
     country: string;
     city: string;
     coordinates: {
         latitude: number; 
         longitude: number; 
     }
-    photos: [string];
-    
+    photos: string[];
+    creationDate: Date;
+    updateDate: Date;
+    likes: string[];
 }

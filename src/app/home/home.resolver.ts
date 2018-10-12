@@ -17,7 +17,8 @@ export class HomeResolver implements Resolve<FirebaseUserModel> {
       .then(res => {
         user.image = res.photoURL || 'http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png';
         user.name = res.displayName;
-         return resolve(user);
+        user.userId = res.uid;
+        return resolve(user);
       }, err => {
         this.router.navigate(['/login']);
         return reject(err);

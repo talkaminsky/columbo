@@ -2142,19 +2142,21 @@ h1 .button{
 }
 
 .trip-images .pic {
-    flex-basis: 31%;
-    margin-bottom: 10px;
-    border-radius: 4px;
+	flex-basis: 23.6%;
+	height: 71px;
+    margin-bottom: 5px;
+	border-radius: 3px;
+	margin-right: 4px;
 }
 
 .trip-images .img {
-    flex-basis: 31%;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    width: 112px;
-    height: 93px;
+    flex-basis: 23.6%;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    width: 100px;
+    height: 70px;
     background-size: cover;
-    margin-right: 10px;
+    margin-right: 4px;
     background-position: center;
     display: flex;
     align-items: center;
@@ -2164,7 +2166,7 @@ h1 .button{
     overflow: hidden;
 }
 
-.trip-images .img:nth-child(3n) {
+.trip-images .img:nth-child(4n) {
     margin-right: 0;
 }
 
@@ -2174,25 +2176,17 @@ h1 .button{
     z-index: 2;
 }
 
-.trip-images .img::after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    transition: opacity .1s ease-in;
-    border-radius: 4px;
-    opacity: 0;
+.trip-images .img  .remove {
+	color: gray;
     position: absolute;
-}
-
-.trip-images .img:hover::after {
+    left: 5px;
+    top: 5px;
     display: block;
-    background-color: #000;
-    opacity: .5;
-}
-
-.trip-images .img:hover span {
-    display: block;
-    color: #fff;
+    border: 3px solid gray;
+    font-size: 11px;
+    padding: 0px 4px;
+    border-radius: 10px;
+    font-weight: bolder;
 }
 
 .trip-images .pic {
@@ -2200,7 +2194,7 @@ h1 .button{
     -ms-grid-row-align: center;
     align-self: center;
     text-align: center;
-    padding: 15px 5px;
+    padding: 4px;
     text-transform: uppercase;
     color: #848EA1;
     font-size: 40px;

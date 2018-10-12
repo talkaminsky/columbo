@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
 
+  titel: string = "Home"
+  constructor(private router: Router) {
+    this.router.events.subscribe((res) => { 
+      this.titel = this.router.url.substring(1);
+    })
+  }
+  
 }
