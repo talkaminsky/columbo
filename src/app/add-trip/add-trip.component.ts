@@ -17,9 +17,7 @@ export class AddTripComponent implements OnInit {
   @Input() userId: string;
   private tripsCollection: AngularFirestoreCollection<Trip>;
 
-  trips: Observable<Trip[]>;
   tripImages: any = [];
-
   allCountries: any = CountriesCities.getCountryNames();
   allCities: any = [];
   selectedCountry: string = 'Country';
@@ -27,9 +25,10 @@ export class AddTripComponent implements OnInit {
   submitted:boolean = false;
   imageId: number = 0;
 
-  constructor(private angularFire: AngularFirestore, private fb: FormBuilder, private afStorage: AngularFireStorage) { 
+  constructor(private angularFire: AngularFirestore, 
+    private fb: FormBuilder,
+    private dbStorage: AngularFireStorage) { 
     this.tripsCollection = angularFire.collection<Trip>('trips');
-    this.trips = this.tripsCollection.valueChanges();
     this.allCountries.unshift('Country');
   }
 
@@ -81,7 +80,7 @@ export class AddTripComponent implements OnInit {
     this.tripImages.forEach(image => {
 
       imagesUplodes.push(new Promise((resolve) => {
-        this.afStorage.upload('/trips/' + this.userId +'/' + new Date().getTime(), image).then(upload => {
+        this.dbStorage.upload('/trips/' + this.userId +'/' + new Date().getTime(), image).then(upload => {
           trip.photos.push(upload.metadata.fullPath);
           resolve();
         });

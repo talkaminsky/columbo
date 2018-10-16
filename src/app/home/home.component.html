@@ -1,5 +1,4 @@
 <section class="container">
-  <app-trip></app-trip>
-  <app-trip></app-trip>
+  <app-trip *ngFor="let trip of trips$ | async" [trip]="trip"></app-trip>
   <app-add-trip [userId]="user.userId"></app-add-trip>
 </section>

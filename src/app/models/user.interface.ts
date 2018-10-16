@@ -1,5 +1,8 @@
 export interface UserMetaData {
     userId: string;
-    freinds: [string];
-    bookmarkes: [string];
+    image: string;
+    name: string;
+    provider: string;
+    freinds: string[];
+    bookmarkes: string[];
 }

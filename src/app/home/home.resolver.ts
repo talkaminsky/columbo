@@ -9,7 +9,6 @@ export class HomeResolver implements Resolve<FirebaseUserModel> {
   constructor(public userService: UserService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) : Promise<FirebaseUserModel> {
-
     let user = new FirebaseUserModel();
 
     return new Promise((resolve, reject) => {
