@@ -24,7 +24,8 @@ export class AddTripComponent implements OnInit {
   tripForm: FormGroup;
   submitted:boolean = false;
   imageId: number = 0;
-
+  loading: false;
+  
   constructor(private angularFire: AngularFirestore, 
     private fb: FormBuilder,
     private dbStorage: AngularFireStorage) { 
