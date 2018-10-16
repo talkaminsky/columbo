@@ -35,6 +35,7 @@ export class TripComponent implements OnInit {
   }
 
   getImage() {
+    this.mainImage = 'assets/template/img/assets/placeholder.png'
     let subscription = this.dbStorage.ref(this.trip.photos[0]).getDownloadURL().subscribe(data => {
       this.mainImage = data;
       subscription.unsubscribe();
@@ -45,23 +46,23 @@ export class TripComponent implements OnInit {
     let seconds = Math.floor((Date.now() / 1000) - date.seconds);
     let interval = Math.floor(seconds / 31536000);
   
-    if (interval > 1) {
+    if (interval > 0) {
       return interval + " years";
     }
     interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
+    if (interval > 0) {
       return interval + " months";
     }
     interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
+    if (interval > 0) {
       return interval + " days";
     }
     interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
+    if (interval > 0) {
       return interval + " hours";
     }
     interval = Math.floor(seconds / 60);
-    if (interval > 1) {
+    if (interval > 0) {
       return interval + " minutes";
     }
     return Math.floor(seconds) + " seconds";

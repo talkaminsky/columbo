@@ -485,6 +485,9 @@ select.form-element{
 	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
 	cursor: pointer;
 }
+.button:disabled{
+	opacity: 0.5;
+}
 .button.circle{
 	border-radius: 40px;
 }

@@ -7,6 +7,8 @@ import { Trip } from '../models/trip.interface';
 import CountriesCities from  'full-countries-cities';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from 'angularfire2/storage';
+import ImageCompressor from 'image-compressor.js';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-add-trip',
@@ -24,8 +26,8 @@ export class AddTripComponent implements OnInit {
   tripForm: FormGroup;
   submitted:boolean = false;
   imageId: number = 0;
-  loading: false;
-  
+  loading:boolean = false;
+
   constructor(private angularFire: AngularFirestore, 
     private fb: FormBuilder,
     private dbStorage: AngularFireStorage) { 
@@ -60,6 +62,8 @@ export class AddTripComponent implements OnInit {
 
     if (this.tripForm.invalid) return;
 
+    this.loading = true;
+
     let trip = {
        userId: this.userId,
        title: this.tripForm.controls.titleControl.value,
@@ -89,7 +93,10 @@ export class AddTripComponent implements OnInit {
 
     });
 
-    Promise.all(imagesUplodes).then(() => this.tripsCollection.add(trip));
+    Promise.all(imagesUplodes).then(() => {
+      this.tripsCollection.add(trip);
+      $('.popup-overlay').remove();
+    });
   }
 
   initImages() {
@@ -102,13 +109,20 @@ export class AddTripComponent implements OnInit {
     uploader.on('change', () => {
         var reader = new FileReader();
         var imageFile = uploader[0]['files'][0];
-        this.tripImages.push(imageFile);
-        reader.readAsDataURL(imageFile);
-        button.hide();
-
-        if(this.tripImages.length < 8) {
-          button.show();
-        }
+        new ImageCompressor(imageFile, {
+          quality: .4,
+          maxHeight: 1000,
+          minWidth: 1000,
+          success: (result) => {
+            this.tripImages.push(result);
+            reader.readAsDataURL(result);
+            button.hide();
+    
+            if(this.tripImages.length < 8) {
+              button.show();
+            }
+          }
+        });
 
         reader.onload = (event) => {
           var image = event['target']['result'];
@@ -131,5 +145,4 @@ export class AddTripComponent implements OnInit {
         }
     });
   }
-
 }

@@ -1,10 +1,9 @@
 <div>
-    <form [formGroup]="tripForm" (ngSubmit)="addTrip()">
-      <div class="add-trip" data-popup="addTripPopup">
-        <i class="fa fa-map-marked-alt"></i>
-      </div>
-      
-      <div class="popup-overlay" id="addTripPopup">
+    <div class="add-trip" data-popup="addTripPopup">
+      <i class="fa fa-map-marked-alt"></i>
+    </div>
+    <div class="popup-overlay" id="addTripPopup">
+      <form [formGroup]="tripForm" (ngSubmit)="addTrip()">
         <div class="popup-container">
           <div class="popup-header">
             <h3 class="popup-title">New Trip</h3>
@@ -62,7 +61,7 @@
             <button class="button green" type="submit" [disabled]="loading">Save</button>
           </div>
         </div>
-      </div>
     </form>
+  </div>
 </div>
 

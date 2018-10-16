@@ -17,8 +17,7 @@
 }
 
 .popup-overlay {
-    z-index: 1000;
-    top: 49px;
+    z-index: 10000;
 }
 
 .add-file{
